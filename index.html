@@ -33,7 +33,7 @@
   .hero{ position:absolute; inset:0; overflow:hidden; z-index:9; opacity:0; pointer-events:none; }
   .hero .inner{ opacity:0; transition:opacity 1.2s ease; }
   .hero .inner.on{ opacity:1; }
-  .hero__bg{ position:absolute; inset:-5%; background:url(assets/hero_bg.jpg?v=74) center 22%/cover no-repeat; animation:breath 16s ease-in-out infinite alternate; }
+  .hero__bg{ position:absolute; inset:-5%; background:url(assets/hero_bg.jpg?v=75) center 22%/cover no-repeat; animation:breath 16s ease-in-out infinite alternate; }
   .hero__bg video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%; opacity:0; transition:opacity 1.8s ease; }
   .hero__bg video.on{ opacity:1; }
   .hero__bg::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(11,14,21,.3) 0%, rgba(11,14,21,0) 30%, rgba(11,14,21,.2) 60%, rgba(11,14,21,.92) 100%); }
@@ -96,7 +96,7 @@
   body.menu-open .menu .yst{ stroke-opacity:.95; }
   /* 押すと、闇がおりてくるメニュー画面 */
   .mpanel{ position:fixed; inset:0; z-index:13; display:flex; flex-direction:column; align-items:center; justify-content:center;
-    gap:clamp(20px,4vh,36px); padding:10vh 7vw; overflow-y:auto; -webkit-overflow-scrolling:touch;
+    gap:clamp(20px,4vh,36px); padding:10vh 7vw; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch;
     background:radial-gradient(130% 90% at 50% 42%, rgba(10,13,20,.94), rgba(5,7,12,.985));
     opacity:0; pointer-events:none; transition:opacity .55s ease; }
   body.menu-open{ overflow:hidden; touch-action:none; }
@@ -156,18 +156,11 @@
     opacity:.8; transition:right .45s cubic-bezier(.2,.8,.2,1); }
   .mplay:hover{ opacity:1; } .mplay:hover::after{ right:0; }
   .mplay svg{ width:18px; height:18px; flex:0 0 auto; }
-  /* 携帯：横向きにしてから */
-  .grot{ display:none; flex-direction:column; align-items:center; gap:8px; margin-top:clamp(16px,3vh,24px); }
-  .grot svg{ width:52px; height:52px; display:block; overflow:visible; }
-  .grot .ph{ transform-origin:40px 40px; animation:phTurn 3.4s ease-in-out infinite; }
-  @keyframes phTurn{ 0%,22%{transform:rotate(0)} 46%,78%{transform:rotate(-90deg)} 100%{transform:rotate(0)} }
-  .grot .gtxt{ font-family:var(--hand); font-size:15px; font-weight:700; letter-spacing:.22em; text-indent:.22em;
-    color:var(--brass); opacity:.62; }
-  @media (max-width:640px){ .grot{ display:flex; } }
   .mstory .sb em{ font-style:italic; opacity:1; }
 
   /* 住人たち：ひとりずつ見せる */
-  .msec[data-sec="chara"]{ flex-direction:column; align-items:center; }
+  .msec[data-sec="chara"]{ flex-direction:column; align-items:center; justify-content:flex-end; height:100%;
+    padding-bottom:clamp(30px,7vh,60px); }
   /* 住人のページは、ロゴもSNSも出さずにキャラを大きく */
   .mpanel[data-open="chara"] .mlogo,
   .mpanel[data-open="chara"] .mlinks{ display:none; }
@@ -179,8 +172,8 @@
     opacity:0; transform:translateX(var(--dx,0)) scale(.96); pointer-events:none;
     transition:opacity .5s ease, transform .55s cubic-bezier(.2,.8,.2,1); }
   .mchara figure.on{ opacity:1; transform:none; pointer-events:auto; }
-  .mchara .turn{ display:block; width:auto; aspect-ratio:var(--ar);
-    height:min(calc(min(72vh,620px) - 26px), calc(min(94vw,520px) / var(--arn,.5)));
+  .mchara .turn{ display:block; flex:0 0 auto; width:auto; aspect-ratio:var(--ar);
+    height:calc(min(calc(min(72vh,620px) - 26px), calc(min(94vw,520px) / var(--arn,.5))) * var(--sc,1));
     background-repeat:no-repeat; background-size:600% 600%;
     cursor:grab; touch-action:none; -webkit-tap-highlight-color:transparent;
     filter:drop-shadow(0 16px 34px rgba(0,0,0,.85)); }
@@ -194,11 +187,16 @@
   @media (max-width:640px){ .cnav{ display:none; } }
   .cnav svg{ display:block; width:100%; height:100%; }
   /* 名前で選ぶ */
-  .cnames{ display:flex; align-items:flex-end; justify-content:center; gap:clamp(8px,3.4vw,42px); margin-top:clamp(6px,1.4vh,14px);
-    touch-action:pan-y; -webkit-tap-highlight-color:transparent; will-change:transform;
-    transform:translateX(var(--sx,0px)); transition:transform .3s cubic-bezier(.2,.8,.2,1); }
-  .cnames.grab{ transition:none; }
-  .cnames button{ padding:6px 6px 9px; min-height:52px; background:none; border:0; cursor:pointer; position:relative;
+  .cnames{ --cw:clamp(88px,25vw,124px);
+    display:flex; align-items:flex-end; justify-content:flex-start; gap:0; width:100%; margin-top:clamp(6px,1.4vh,14px);
+    padding:0 calc(50% - var(--cw)/2); overflow-x:auto; overflow-y:hidden;
+    scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; touch-action:pan-x;
+    scrollbar-width:none; -ms-overflow-style:none; -webkit-tap-highlight-color:transparent;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent); }
+  .cnames::-webkit-scrollbar{ display:none; }
+  .cnames button{ flex:0 0 var(--cw); width:var(--cw); scroll-snap-align:center;
+    padding:6px 2px 9px; min-height:52px; background:none; border:0; cursor:pointer; position:relative;
     display:flex; flex-direction:column; align-items:center; gap:6px;
     font-family:var(--hand); font-size:clamp(15px,4.2vw,18px); font-weight:700; letter-spacing:.18em; text-indent:.18em;
     color:var(--paper); opacity:.42; transition:opacity .35s ease, transform .4s cubic-bezier(.2,.8,.2,1); -webkit-tap-highlight-color:transparent; }
@@ -208,8 +206,9 @@
   .cnames button.on{ transform:translateY(-3px) scale(1.07); }
   .cnames button.on .cth{ filter:saturate(.86) brightness(1.04) drop-shadow(0 9px 16px rgba(0,0,0,.8)); }
   .cnames button::after{ content:""; position:absolute; left:50%; right:50%; bottom:0; height:1px; background:var(--brass);
+    
     opacity:.85; transition:left .4s cubic-bezier(.2,.8,.2,1), right .4s cubic-bezier(.2,.8,.2,1); }
-  .cnames button.on{ opacity:1; } .cnames button.on::after{ left:2px; right:2px; }
+  .cnames button.on{ opacity:1; } .cnames button.on::after{ left:22%; right:22%; }
   .cnames button:hover{ opacity:.8; }
 
   /* 足元の輪。斜めに置いた輪の上を、破線と矢印がまわる */
@@ -336,7 +335,7 @@
   .gate .door.l{ left:22.24%; width:28.2%; transform-origin:0% 50%; }
   .gate .door.r{ left:50.44%; width:27.58%; transform-origin:100% 50%; }
   .gate .door.r::after{ background:linear-gradient(270deg, rgba(0,0,0,0) 20%, rgba(0,0,0,.7)); }
-  .gate .edge{ position:absolute; top:0; bottom:0; width:5%; background:url(assets/gate_edge.jpg?v=74) center/100% 100%; box-shadow:inset 0 0 20px rgba(0,0,0,.6); }
+  .gate .edge{ position:absolute; top:0; bottom:0; width:5%; background:url(assets/gate_edge.jpg?v=75) center/100% 100%; box-shadow:inset 0 0 20px rgba(0,0,0,.6); }
   .gate .door.l .edge{ left:100%; transform-origin:0% 50%; transform:rotateY(-90deg); }
   .gate .door.r .edge{ right:100%; transform-origin:100% 50%; transform:rotateY(90deg); }
   .gate .ofuda{ z-index:4; }
@@ -420,27 +419,27 @@
   </feDisplacementMap>
 </filter></svg>
 <div id="mems" aria-hidden="true"><div class="mist a"></div><div class="mist b"></div></div>
-<audio id="bgm" loop preload="auto" src="assets/bgm.mp3?v=74"></audio>
-<audio id="sfxdoor" preload="auto" src="assets/sfx_door.mp3?v=74"></audio>
-<audio id="sfxbell" preload="auto" src="assets/sfx_bell.mp3?v=74"></audio>
+<audio id="bgm" loop preload="auto" src="assets/bgm.mp3?v=75"></audio>
+<audio id="sfxdoor" preload="auto" src="assets/sfx_door.mp3?v=75"></audio>
+<audio id="sfxbell" preload="auto" src="assets/sfx_bell.mp3?v=75"></audio>
 <section class="gatewrap" id="scene2" aria-label="the sealed gate">
   <div class="sticky">
     <div class="gate" id="gate">
       <div class="hole" aria-hidden="true"></div>
-      <div class="door l" id="doorL"><img src="assets/gate_door_l.jpg?v=74" alt=""><i class="edge"></i></div>
-      <div class="door r" id="doorR"><img src="assets/gate_door_r.jpg?v=74" alt=""><i class="edge"></i></div>
-      <img class="frame" src="assets/gate_frame.webp?v=74" alt="An old wooden gate sealed with paper talismans">
-      <div class="rope"><img src="assets/gate_rope.webp?v=74" alt=""></div>
+      <div class="door l" id="doorL"><img src="assets/gate_door_l.jpg?v=75" alt=""><i class="edge"></i></div>
+      <div class="door r" id="doorR"><img src="assets/gate_door_r.jpg?v=75" alt=""><i class="edge"></i></div>
+      <img class="frame" src="assets/gate_frame.webp?v=75" alt="An old wooden gate sealed with paper talismans">
+      <div class="rope"><img src="assets/gate_rope.webp?v=75" alt=""></div>
     </div>
     <div class="gfade" id="gfade" aria-hidden="true"></div>
 <div class="hero" id="hero">
     <div class="hero__bg" aria-hidden="true">
-      <video muted loop playsinline autoplay preload="auto" poster="assets/hero_bg.jpg?v=74" data-src-d="assets/v_hero_d.mp4?v=74" data-src-m="assets/v_hero_m.mp4?v=74"></video>
+      <video muted loop playsinline autoplay preload="auto" poster="assets/hero_bg.jpg?v=75" data-src-d="assets/v_hero_d.mp4?v=75" data-src-m="assets/v_hero_m.mp4?v=75"></video>
     </div>
     <div class="fog" aria-hidden="true"><span class="a"></span><span class="b"></span></div>
     <div class="inner" id="inner">
       <div class="hero-stack">
-        <img class="logo" src="assets/logo.png?v=74" alt="MONO">
+        <img class="logo" src="assets/logo.png?v=75" alt="MONO">
       </div>
     </div>
   </div>
@@ -464,7 +463,7 @@
   <button type="button" data-sec="game">GAME</button>
 </nav>
 <nav class="mpanel" id="mpanel" aria-label="MONO">
-  <img class="mlogo" src="assets/logo.png?v=74" alt="MONO">
+  <img class="mlogo" src="assets/logo.png?v=75" alt="MONO">
   <ul class="mmenu">
     <li><button type="button" data-sec="news">NEWS</button></li>
     <li><button type="button" data-sec="story">STORY</button></li>
@@ -503,17 +502,6 @@
       <div class="msectitle">GAME</div>
       <div class="gt">THE STOREHOUSE<br>OF OBLIVION</div>
       <div class="sb">A doll wanders into the storehouse.<br>Pick up what was left behind,<br>and walk toward the light.</div>
-      <div class="grot">
-        <svg viewBox="0 0 80 80" aria-hidden="true"><g filter="url(#ymw)">
-          <g class="ph">
-            <rect class="yst" x="27" y="18" width="26" height="44" rx="5" stroke-width="2.6" fill="none"/>
-            <path class="yst" d="M36 23 h8" stroke-width="2.2"/>
-          </g>
-          <path class="yst" d="M60 24 C68 32 68 48 60 56" stroke-width="2" stroke-opacity=".4"/>
-          <path class="ta" d="M56.6 51.6 L61.8 58.8 L66.4 51.2 C63.2 52.4 59.8 52.6 56.6 51.6 Z" fill="var(--paper)" fill-opacity=".5" stroke="none"/>
-        </g></svg>
-        <span class="gtxt">TURN SIDEWAYS</span>
-      </div>
       <a class="mplay" href="https://manyverse.app/ja/game/UhAK_-LUs6jKh0YuPsst4?fullscreen=1" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 4.2 L19 12 L6.5 19.8 C5.9 18 5.7 15.4 5.8 12.1 L5.9 7.4 C6 5.6 6.2 4.7 6.5 4.2 Z"
           fill="none" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/></svg>PLAY</a>
@@ -527,27 +515,27 @@
       </g></svg>
       </button>
       <div class="cstage" id="cstage">
-        <figure class="on"><div class="turn" data-dir="-1" data-sheet="assets/turn_koto.webp?v=74" style="--ar:286/620;--arn:.461"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure class="on"><div class="turn" data-dir="-1" data-sheet="assets/turn_koto.webp?v=75" style="--ar:286/620;--arn:.461"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
         </svg></div></figure>
-        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_tama.webp?v=74" style="--ar:307/620;--arn:.495"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_tama.webp?v=75" style="--ar:307/620;--arn:.495"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
         </svg></div></figure>
-        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_bo.webp?v=74" style="--ar:438/620;--arn:.706"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_bo.webp?v=75" style="--ar:438/620;--arn:.706;--sc:.333"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
         </svg></div></figure>
-        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_babaa.webp?v=74" style="--ar:321/620;--arn:.518"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_babaa.webp?v=75" style="--ar:321/620;--arn:.518"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
         </svg></div></figure>
-        <figure><div class="turn" data-sheet="assets/turn_debu.webp?v=74" style="--ar:581/620;--arn:.937"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure><div class="turn" data-sheet="assets/turn_debu.webp?v=75" style="--ar:581/620;--arn:.937;--sc:1.28"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
@@ -560,11 +548,11 @@
       </button>
     </div>
     <div class="cnames" id="cnames">
-      <button type="button" data-i="0" class="on"><span class="cth" style="--ar:286/620;--th:url(assets/th_koto.webp?v=74)"></span>KOTO</button>
-      <button type="button" data-i="1"><span class="cth" style="--ar:307/620;--th:url(assets/th_tama.webp?v=74)"></span>TAMA</button>
-      <button type="button" data-i="2"><span class="cth" style="--ar:438/620;--th:url(assets/th_bo.webp?v=74)"></span>OG3</button>
-      <button type="button" data-i="3"><span class="cth" style="--ar:321/620;--th:url(assets/th_babaa.webp?v=74)"></span>BABAA</button>
-      <button type="button" data-i="4"><span class="cth" style="--ar:581/620;--th:url(assets/th_debu.webp?v=74)"></span>DEBU</button>
+      <button type="button" data-i="0" class="on"><span class="cth" style="--ar:286/620;--th:url(assets/th_koto.webp?v=75)"></span>KOTO</button>
+      <button type="button" data-i="1"><span class="cth" style="--ar:307/620;--th:url(assets/th_tama.webp?v=75)"></span>TAMA</button>
+      <button type="button" data-i="2"><span class="cth" style="--ar:438/620;--th:url(assets/th_bo.webp?v=75)"></span>OG3</button>
+      <button type="button" data-i="3"><span class="cth" style="--ar:321/620;--th:url(assets/th_babaa.webp?v=75)"></span>BABAA</button>
+      <button type="button" data-i="4"><span class="cth" style="--ar:581/620;--th:url(assets/th_debu.webp?v=75)"></span>DEBU</button>
     </div>
   </div>
   <div class="mlinks">
@@ -592,7 +580,7 @@
 <div class="gplay" id="gplay" aria-hidden="true">
   <iframe id="gframe" title="The Storehouse of Oblivion" allow="autoplay; fullscreen; encrypted-media; gamepad" allowfullscreen></iframe>
   <div class="gload" id="gload">
-    <img class="glogo" src="assets/logo.png?v=74" alt="MONO">
+    <img class="glogo" src="assets/logo.png?v=75" alt="MONO">
     <div class="gbar" id="gbar"><i></i></div>
   </div>
   <a class="gtab" id="gtab" href="https://manyverse.app/ja/game/UhAK_-LUs6jKh0YuPsst4?fullscreen=1" target="_blank" rel="noopener noreferrer" aria-label="open in a new tab">
@@ -768,7 +756,7 @@
     depth:function(y){ if(!this.yr){ var v=this.slots.map(function(o){return o.y;}); this.yr={a:Math.min.apply(null,v),b:Math.max.apply(null,v)}; }
       var d=this.yr.b-this.yr.a; return d>0 ? Math.max(0,Math.min(1,(y-this.yr.a)/d)) : 1; },
     add:function(){ if(this.list.length>=this.max){ var o=this.list.shift(); o.el.remove(); }
-      var el=document.createElement('div'); el.className='wk'; var im=document.createElement('img'); im.src=(this.seq===2?'assets/monobo_bag.webp?v=74':'assets/monobo.webp?v=74'); im.alt=''; var sh=document.createElement('div'); sh.className='sh'; el.appendChild(sh); el.appendChild(im);
+      var el=document.createElement('div'); el.className='wk'; var im=document.createElement('img'); im.src=(this.seq===2?'assets/monobo_bag.webp?v=75':'assets/monobo.webp?v=75'); im.alt=''; var sh=document.createElement('div'); sh.className='sh'; el.appendChild(sh); el.appendChild(im);
       var hf=(narrow?.285:.268);                            /* 開口部の高さに対する比。窓の大きさを変えても門との比率は変わらない */
       var slot=this.slots[Math.min(this.seq,this.slots.length-1)];
       var H=this.hole(), hw=H.x1-H.x0, hh=H.y1-H.y0, dep=this.depth(slot.y);
@@ -815,7 +803,7 @@
         /* 重なり順は add() で一度だけ決める。途中で入れ替わらない */
         if(walking){ var foot=Math.floor(ph/Math.PI); if(foot!==k.lastFoot){ k.lastFoot=foot; if(k.lastFoot>0) A.step(.04+.45*p); } } } } };
   /* ---- 闇の中を、MONOの記憶が流れていく ---- */
-  var MEMS=['assets/mem_0.mp4?v=74','assets/mem_1.mp4?v=74','assets/mem_2.mp4?v=74','assets/mem_3.mp4?v=74','assets/mem_4.mp4?v=74','assets/mem_5.mp4?v=74','assets/mem_6.mp4?v=74','assets/mem_7.mp4?v=74','assets/mem_8.mp4?v=74','assets/mem_9.mp4?v=74'];
+  var MEMS=['assets/mem_0.mp4?v=75','assets/mem_1.mp4?v=75','assets/mem_2.mp4?v=75','assets/mem_3.mp4?v=75','assets/mem_4.mp4?v=75','assets/mem_5.mp4?v=75','assets/mem_6.mp4?v=75','assets/mem_7.mp4?v=75','assets/mem_8.mp4?v=75','assets/mem_9.mp4?v=75'];
   var Memories={ el:document.getElementById('mems'), list:[], sp:[], loaded:false,
     cfg:[ {s:.36,side:-1,y:.36,r:-11,w:.92}, {s:.41,side:1,y:.62,r:8,w:1.12}, {s:.45,side:-1,y:.70,r:-7,w:.84}, {s:.50,side:1,y:.34,r:13,w:1.06}, {s:.55,side:-1,y:.58,r:-9,w:.96}, {s:.60,side:1,y:.44,r:6,w:1.18}, {s:.65,side:-1,y:.30,r:-13,w:.88}, {s:.70,side:1,y:.66,r:10,w:1.02}, {s:.75,side:-1,y:.50,r:-5,w:1.10}, {s:.80,side:1,y:.40,r:14,w:.90} ],
     shard:function(){ /* 割れた鏡の一片: 直線的で不揃いな多角形 */
@@ -1018,40 +1006,37 @@
     /* 左右の送り */
     var figs=[].slice.call(document.querySelectorAll('.cstage figure')),
         names=[].slice.call(document.querySelectorAll('.cnames button')), cur=0;
-    var stage=document.getElementById('cstage');
+    var stage=document.getElementById('cstage'), strip=document.getElementById('cnames');
     function fit(){ var t=figs[cur].querySelector('.turn');
       var arn=parseFloat(getComputedStyle(t).getPropertyValue('--arn'))||.5;
+      var sc=parseFloat(getComputedStyle(t).getPropertyValue('--sc'))||1;
       var aH=Math.min(innerHeight*.72,620)-26, aW=Math.min(innerWidth*.94,520);
-      stage.style.height=(Math.min(aH, aW/arn)+26).toFixed(0)+'px'; }
-    addEventListener('resize',fit);
+      stage.style.height=(Math.min(aH, aW/arn)*Math.min(sc,1)+26).toFixed(0)+'px'; }
+    addEventListener('resize',function(){ fit(); center(cur,false); });
     function show(i,dir){ i=((i%figs.length)+figs.length)%figs.length; if(i===cur) return;
       figs[cur].style.setProperty('--dx',(dir>0?'-26px':'26px')); figs[cur].classList.remove('on');
       cur=i; figs[cur].style.setProperty('--dx',(dir>0?'26px':'-26px'));
       void figs[cur].offsetWidth; figs[cur].style.setProperty('--dx','0px'); figs[cur].classList.add('on');
       names.forEach(function(b2,k){ b2.classList.toggle('on',k===cur); }); fit(); A.creak(.22); }
-    document.querySelector('.cnav.prev').addEventListener('click',function(e){ e.stopPropagation(); show(cur-1,-1); });
-    document.querySelector('.cnav.next').addEventListener('click',function(e){ e.stopPropagation(); show(cur+1, 1); });
+    document.querySelector('.cnav.prev').addEventListener('click',function(e){ e.stopPropagation(); go(cur-1); });
+    document.querySelector('.cnav.next').addEventListener('click',function(e){ e.stopPropagation(); go(cur+1); });
     names.forEach(function(b2){ b2.addEventListener('click',function(e){ e.stopPropagation();
-      if(swiped) return;
-      var i=+b2.getAttribute('data-i'); show(i, i>cur?1:-1); }); });
-    /* 小さなキャラの列を、指ですべらせても切り替わる */
-    var strip=document.getElementById('cnames'), sw=null, swiped=false, STEP=38;
-    function slack(v){ return (v<0?-1:1)*Math.min(26, Math.abs(v)*.4); }              /* 指について少しだけ動く */
-    strip.addEventListener('pointerdown',function(e){ sw={x:e.clientX,y:e.clientY,i:cur,ax:0}; swiped=false;
-      strip.classList.add('grab'); });
-    strip.addEventListener('pointermove',function(e){ if(!sw) return;
-      var dx=e.clientX-sw.x, dy=e.clientY-sw.y;
-      if(!sw.ax){ if(Math.abs(dx)<6&&Math.abs(dy)<6) return; sw.ax=Math.abs(dx)>Math.abs(dy)?1:2; }
-      if(sw.ax===2) return;
-      var step=Math.round(dx/STEP), to=Math.max(0,Math.min(figs.length-1, sw.i-step));
-      strip.style.setProperty('--sx', slack(dx-step*STEP).toFixed(1)+'px');
-      if(to!==cur){ swiped=true; show(to, to>cur?1:-1); } });
-    ['pointerup','pointercancel','pointerleave'].forEach(function(t){
-      strip.addEventListener(t,function(){ sw=null; strip.classList.remove('grab');
-        strip.style.setProperty('--sx','0px'); setTimeout(function(){ swiped=false; },0); }); });
+      go(+b2.getAttribute('data-i')); }); });
+    /* 小さなキャラの列。真ん中に来たものが、上に大きく出る */
+    function center(i,smooth){ var b2=names[i]; if(!b2) return;
+      var to=b2.offsetLeft+b2.offsetWidth/2-strip.clientWidth/2;
+      if(strip.scrollTo) strip.scrollTo({left:to, behavior:smooth?'smooth':'auto'}); else strip.scrollLeft=to; }
+    function go(i){ i=Math.max(0,Math.min(figs.length-1,i)); center(i,true); show(i, i>cur?1:-1); }
+    var raf=null;
+    strip.addEventListener('scroll',function(){ if(raf) cancelAnimationFrame(raf);
+      raf=requestAnimationFrame(function(){ raf=null;
+        var c=strip.scrollLeft+strip.clientWidth/2, best=cur, bd=1e9;
+        names.forEach(function(b2,k){ var d=Math.abs(b2.offsetLeft+b2.offsetWidth/2-c); if(d<bd){ bd=d; best=k; } });
+        if(best!==cur) show(best, best>cur?1:-1); }); },{passive:true});
+
 
     var shown=false;
-    return { load:function(){ list.forEach(function(o){ o.load(); }); fit();
+    return { load:function(){ list.forEach(function(o){ o.load(); }); fit(); center(cur,false);
         if(!shown){ shown=true; setTimeout(function(){ list.forEach(function(o){ o.demo(); }); },520); } },
       tick:function(){} };
   })();
