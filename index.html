@@ -33,7 +33,7 @@
   .hero{ position:absolute; inset:0; overflow:hidden; z-index:9; opacity:0; pointer-events:none; }
   .hero .inner{ opacity:0; transition:opacity 1.2s ease; }
   .hero .inner.on{ opacity:1; }
-  .hero__bg{ position:absolute; inset:-5%; background:url(assets/hero_bg.jpg?v=76) center 22%/cover no-repeat; animation:breath 16s ease-in-out infinite alternate; }
+  .hero__bg{ position:absolute; inset:-5%; background:url(assets/hero_bg.jpg?v=77) center 22%/cover no-repeat; animation:breath 16s ease-in-out infinite alternate; }
   .hero__bg video{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:50% 30%; opacity:0; transition:opacity 1.8s ease; }
   .hero__bg video.on{ opacity:1; }
   .hero__bg::after{ content:""; position:absolute; inset:0; background:linear-gradient(180deg, rgba(11,14,21,.3) 0%, rgba(11,14,21,0) 30%, rgba(11,14,21,.2) 60%, rgba(11,14,21,.92) 100%); }
@@ -174,7 +174,7 @@
     transition:opacity .5s ease, transform .55s cubic-bezier(.2,.8,.2,1); }
   .mchara figure.on{ opacity:1; transform:none; pointer-events:auto; }
   .mchara .turn{ display:block; flex:0 0 auto; width:auto; aspect-ratio:var(--ar);
-    height:calc(min(calc(min(72vh,620px) - 26px), calc(min(94vw,520px) / var(--arn,.5))) * var(--sc,1));
+    height:min(calc((min(72vh,620px) - 20px) * var(--k,1)), calc(min(94vw,520px) / var(--arn,.5) * var(--ov,1)));
     background-repeat:no-repeat; background-size:600% 600%;
     cursor:grab; touch-action:none; -webkit-tap-highlight-color:transparent;
     filter:drop-shadow(0 16px 34px rgba(0,0,0,.85)); }
@@ -189,7 +189,7 @@
   .cnav svg{ display:block; width:100%; height:100%; }
   /* 名前で選ぶ */
   .cnames{ --cw:clamp(88px,25vw,124px);
-    display:flex; align-items:flex-end; justify-content:flex-start; gap:0; width:100%; margin-top:clamp(6px,1.4vh,14px);
+    display:flex; align-items:flex-end; justify-content:flex-start; gap:0; width:100%; margin-top:-4px;
     padding:0 calc(50% - var(--cw)/2); overflow-x:auto; overflow-y:hidden;
     scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; touch-action:pan-x;
     scrollbar-width:none; -ms-overflow-style:none; -webkit-tap-highlight-color:transparent;
@@ -213,7 +213,7 @@
   .cnames button:hover{ opacity:.8; }
 
   /* 足元の輪。斜めに置いた輪の上を、破線と矢印がまわる */
-  .tring{ position:relative; width:100%; margin:4px 0 0; height:26px; pointer-events:none; flex:0 0 auto; }
+  .tring{ position:relative; width:100%; margin:0; height:20px; pointer-events:none; flex:0 0 auto; }
   .tring svg{ display:block; width:100%; height:100%; overflow:visible; }
   .tring .tr{ fill:none; stroke:var(--paper); stroke-opacity:.42; stroke-width:2.1; stroke-linecap:round;
     stroke-dasharray:11 9; animation:trspin 3.2s linear infinite; }
@@ -336,7 +336,7 @@
   .gate .door.l{ left:22.24%; width:28.2%; transform-origin:0% 50%; }
   .gate .door.r{ left:50.44%; width:27.58%; transform-origin:100% 50%; }
   .gate .door.r::after{ background:linear-gradient(270deg, rgba(0,0,0,0) 20%, rgba(0,0,0,.7)); }
-  .gate .edge{ position:absolute; top:0; bottom:0; width:5%; background:url(assets/gate_edge.jpg?v=76) center/100% 100%; box-shadow:inset 0 0 20px rgba(0,0,0,.6); }
+  .gate .edge{ position:absolute; top:0; bottom:0; width:5%; background:url(assets/gate_edge.jpg?v=77) center/100% 100%; box-shadow:inset 0 0 20px rgba(0,0,0,.6); }
   .gate .door.l .edge{ left:100%; transform-origin:0% 50%; transform:rotateY(-90deg); }
   .gate .door.r .edge{ right:100%; transform-origin:100% 50%; transform:rotateY(90deg); }
   .gate .ofuda{ z-index:4; }
@@ -420,27 +420,27 @@
   </feDisplacementMap>
 </filter></svg>
 <div id="mems" aria-hidden="true"><div class="mist a"></div><div class="mist b"></div></div>
-<audio id="bgm" loop preload="auto" src="assets/bgm.mp3?v=76"></audio>
-<audio id="sfxdoor" preload="auto" src="assets/sfx_door.mp3?v=76"></audio>
-<audio id="sfxbell" preload="auto" src="assets/sfx_bell.mp3?v=76"></audio>
+<audio id="bgm" loop preload="auto" src="assets/bgm.mp3?v=77"></audio>
+<audio id="sfxdoor" preload="auto" src="assets/sfx_door.mp3?v=77"></audio>
+<audio id="sfxbell" preload="auto" src="assets/sfx_bell.mp3?v=77"></audio>
 <section class="gatewrap" id="scene2" aria-label="the sealed gate">
   <div class="sticky">
     <div class="gate" id="gate">
       <div class="hole" aria-hidden="true"></div>
-      <div class="door l" id="doorL"><img src="assets/gate_door_l.jpg?v=76" alt=""><i class="edge"></i></div>
-      <div class="door r" id="doorR"><img src="assets/gate_door_r.jpg?v=76" alt=""><i class="edge"></i></div>
-      <img class="frame" src="assets/gate_frame.webp?v=76" alt="An old wooden gate sealed with paper talismans">
-      <div class="rope"><img src="assets/gate_rope.webp?v=76" alt=""></div>
+      <div class="door l" id="doorL"><img src="assets/gate_door_l.jpg?v=77" alt=""><i class="edge"></i></div>
+      <div class="door r" id="doorR"><img src="assets/gate_door_r.jpg?v=77" alt=""><i class="edge"></i></div>
+      <img class="frame" src="assets/gate_frame.webp?v=77" alt="An old wooden gate sealed with paper talismans">
+      <div class="rope"><img src="assets/gate_rope.webp?v=77" alt=""></div>
     </div>
     <div class="gfade" id="gfade" aria-hidden="true"></div>
 <div class="hero" id="hero">
     <div class="hero__bg" aria-hidden="true">
-      <video muted loop playsinline autoplay preload="auto" poster="assets/hero_bg.jpg?v=76" data-src-d="assets/v_hero_d.mp4?v=76" data-src-m="assets/v_hero_m.mp4?v=76"></video>
+      <video muted loop playsinline autoplay preload="auto" poster="assets/hero_bg.jpg?v=77" data-src-d="assets/v_hero_d.mp4?v=77" data-src-m="assets/v_hero_m.mp4?v=77"></video>
     </div>
     <div class="fog" aria-hidden="true"><span class="a"></span><span class="b"></span></div>
     <div class="inner" id="inner">
       <div class="hero-stack">
-        <img class="logo" src="assets/logo.png?v=76" alt="MONO">
+        <img class="logo" src="assets/logo.png?v=77" alt="MONO">
       </div>
     </div>
   </div>
@@ -464,7 +464,7 @@
   <button type="button" data-sec="game">GAME</button>
 </nav>
 <nav class="mpanel" id="mpanel" aria-label="MONO">
-  <img class="mlogo" src="assets/logo.png?v=76" alt="MONO">
+  <img class="mlogo" src="assets/logo.png?v=77" alt="MONO">
   <ul class="mmenu">
     <li><button type="button" data-sec="news">NEWS</button></li>
     <li><button type="button" data-sec="story">STORY</button></li>
@@ -516,27 +516,27 @@
       </g></svg>
       </button>
       <div class="cstage" id="cstage">
-        <figure class="on"><div class="turn" data-dir="-1" data-sheet="assets/turn_koto.webp?v=76" style="--ar:286/620;--arn:.461"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure class="on"><div class="turn" data-dir="-1" data-sheet="assets/turn_koto.webp?v=77" style="--ar:286/620;--arn:.461;--k:.5"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
         </svg></div></figure>
-        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_tama.webp?v=76" style="--ar:307/620;--arn:.495;--sc:.5"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_tama.webp?v=77" style="--ar:307/620;--arn:.495;--k:.5"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
         </svg></div></figure>
-        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_bo.webp?v=76" style="--ar:438/620;--arn:.706;--sc:.5"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_bo.webp?v=77" style="--ar:438/620;--arn:.706;--k:.4"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
         </svg></div></figure>
-        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_babaa.webp?v=76" style="--ar:321/620;--arn:.518"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure><div class="turn" data-dir="-1" data-sheet="assets/turn_babaa.webp?v=77" style="--ar:321/620;--arn:.518;--k:1"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
         </svg></div></figure>
-        <figure><div class="turn" data-sheet="assets/turn_debu.webp?v=76" style="--ar:581/620;--arn:.937;--sc:1.28"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
+        <figure><div class="turn" data-sheet="assets/turn_debu.webp?v=77" style="--ar:581/620;--arn:.937;--k:1;--ov:1.28"></div><div class="tring"><svg viewBox="0 0 120 42" aria-hidden="true">
           <ellipse class="tr" cx="60" cy="21" rx="52" ry="14"/>
           <path class="ta" d="M64 29.6 L79 35.2 L64 40.8 C65.6 37.4 65.6 33 64 29.6 Z"/>
           <path class="ta2" d="M56 1.4 L41 7 L56 12.6 C54.4 9.2 54.4 4.8 56 1.4 Z"/>
@@ -549,11 +549,11 @@
       </button>
     </div>
     <div class="cnames" id="cnames">
-      <button type="button" data-i="0" class="on"><span class="cth" style="--ar:286/620;--th:url(assets/th_koto.webp?v=76)"></span>KOTO</button>
-      <button type="button" data-i="1"><span class="cth" style="--ar:307/620;--th:url(assets/th_tama.webp?v=76)"></span>TAMA</button>
-      <button type="button" data-i="2"><span class="cth" style="--ar:438/620;--th:url(assets/th_bo.webp?v=76)"></span>OG3</button>
-      <button type="button" data-i="3"><span class="cth" style="--ar:321/620;--th:url(assets/th_babaa.webp?v=76)"></span>BABAA</button>
-      <button type="button" data-i="4"><span class="cth" style="--ar:581/620;--th:url(assets/th_debu.webp?v=76)"></span>DEBU</button>
+      <button type="button" data-i="0" class="on"><span class="cth" style="--ar:286/620;--th:url(assets/th_koto.webp?v=77)"></span>KOTO</button>
+      <button type="button" data-i="1"><span class="cth" style="--ar:307/620;--th:url(assets/th_tama.webp?v=77)"></span>TAMA</button>
+      <button type="button" data-i="2"><span class="cth" style="--ar:438/620;--th:url(assets/th_bo.webp?v=77)"></span>OG3</button>
+      <button type="button" data-i="3"><span class="cth" style="--ar:321/620;--th:url(assets/th_babaa.webp?v=77)"></span>BABAA</button>
+      <button type="button" data-i="4"><span class="cth" style="--ar:581/620;--th:url(assets/th_debu.webp?v=77)"></span>DEBU</button>
     </div>
   </div>
   <div class="mlinks">
@@ -581,7 +581,7 @@
 <div class="gplay" id="gplay" aria-hidden="true">
   <iframe id="gframe" title="The Storehouse of Oblivion" allow="autoplay; fullscreen; encrypted-media; gamepad" allowfullscreen></iframe>
   <div class="gload" id="gload">
-    <img class="glogo" src="assets/logo.png?v=76" alt="MONO">
+    <img class="glogo" src="assets/logo.png?v=77" alt="MONO">
     <div class="gbar" id="gbar"><i></i></div>
   </div>
   <a class="gtab" id="gtab" href="https://manyverse.app/ja/game/UhAK_-LUs6jKh0YuPsst4?fullscreen=1" target="_blank" rel="noopener noreferrer" aria-label="open in a new tab">
@@ -757,7 +757,7 @@
     depth:function(y){ if(!this.yr){ var v=this.slots.map(function(o){return o.y;}); this.yr={a:Math.min.apply(null,v),b:Math.max.apply(null,v)}; }
       var d=this.yr.b-this.yr.a; return d>0 ? Math.max(0,Math.min(1,(y-this.yr.a)/d)) : 1; },
     add:function(){ if(this.list.length>=this.max){ var o=this.list.shift(); o.el.remove(); }
-      var el=document.createElement('div'); el.className='wk'; var im=document.createElement('img'); im.src=(this.seq===2?'assets/monobo_bag.webp?v=76':'assets/monobo.webp?v=76'); im.alt=''; var sh=document.createElement('div'); sh.className='sh'; el.appendChild(sh); el.appendChild(im);
+      var el=document.createElement('div'); el.className='wk'; var im=document.createElement('img'); im.src=(this.seq===2?'assets/monobo_bag.webp?v=77':'assets/monobo.webp?v=77'); im.alt=''; var sh=document.createElement('div'); sh.className='sh'; el.appendChild(sh); el.appendChild(im);
       var hf=(narrow?.285:.268);                            /* 開口部の高さに対する比。窓の大きさを変えても門との比率は変わらない */
       var slot=this.slots[Math.min(this.seq,this.slots.length-1)];
       var H=this.hole(), hw=H.x1-H.x0, hh=H.y1-H.y0, dep=this.depth(slot.y);
@@ -804,7 +804,7 @@
         /* 重なり順は add() で一度だけ決める。途中で入れ替わらない */
         if(walking){ var foot=Math.floor(ph/Math.PI); if(foot!==k.lastFoot){ k.lastFoot=foot; if(k.lastFoot>0) A.step(.04+.45*p); } } } } };
   /* ---- 闇の中を、MONOの記憶が流れていく ---- */
-  var MEMS=['assets/mem_0.mp4?v=76','assets/mem_1.mp4?v=76','assets/mem_2.mp4?v=76','assets/mem_3.mp4?v=76','assets/mem_4.mp4?v=76','assets/mem_5.mp4?v=76','assets/mem_6.mp4?v=76','assets/mem_7.mp4?v=76','assets/mem_8.mp4?v=76','assets/mem_9.mp4?v=76'];
+  var MEMS=['assets/mem_0.mp4?v=77','assets/mem_1.mp4?v=77','assets/mem_2.mp4?v=77','assets/mem_3.mp4?v=77','assets/mem_4.mp4?v=77','assets/mem_5.mp4?v=77','assets/mem_6.mp4?v=77','assets/mem_7.mp4?v=77','assets/mem_8.mp4?v=77','assets/mem_9.mp4?v=77'];
   var Memories={ el:document.getElementById('mems'), list:[], sp:[], loaded:false,
     cfg:[ {s:.36,side:-1,y:.36,r:-11,w:.92}, {s:.41,side:1,y:.62,r:8,w:1.12}, {s:.45,side:-1,y:.70,r:-7,w:.84}, {s:.50,side:1,y:.34,r:13,w:1.06}, {s:.55,side:-1,y:.58,r:-9,w:.96}, {s:.60,side:1,y:.44,r:6,w:1.18}, {s:.65,side:-1,y:.30,r:-13,w:.88}, {s:.70,side:1,y:.66,r:10,w:1.02}, {s:.75,side:-1,y:.50,r:-5,w:1.10}, {s:.80,side:1,y:.40,r:14,w:.90} ],
     shard:function(){ /* 割れた鏡の一片: 直線的で不揃いな多角形 */
@@ -1010,12 +1010,13 @@
     var stage=document.getElementById('cstage'), strip=document.getElementById('cnames');
     function fit(){
       var top=(innerWidth<=640?74:78), bot=stage.getBoundingClientRect().bottom;     /* 下はそろえてあるので、下端は動かない */
-      var room=Math.max(160, Math.min(bot-top, 700)-26), aW=Math.min(innerWidth*.94,520);
+      var room=Math.max(160, Math.min(bot-top, 700)-20), aW=Math.min(innerWidth*.94,520);
       figs.forEach(function(fg,k){ var t=fg.querySelector('.turn'), cs=getComputedStyle(t);
-        var arn=parseFloat(cs.getPropertyValue('--arn'))||.5, sc=parseFloat(cs.getPropertyValue('--sc'))||1;
-        var h=Math.min(Math.min(room, aW/arn)*sc, room);                               /* 横ははみ出してよい。頭は必ず見える */
+        var arn=parseFloat(cs.getPropertyValue('--arn'))||.5,
+            kk=parseFloat(cs.getPropertyValue('--k'))||1, ov=parseFloat(cs.getPropertyValue('--ov'))||1;
+        var h=Math.min(room*kk, aW/arn*ov, room);                                     /* 高さの割合でそろえる。頭は必ず見える */
         t.style.height=h.toFixed(0)+'px';
-        if(k===cur) stage.style.height=(h+26).toFixed(0)+'px'; }); }
+        if(k===cur) stage.style.height=(h+20).toFixed(0)+'px'; }); }
     addEventListener('resize',function(){ fit(); center(cur,false); });
     function show(i,dir){ i=((i%figs.length)+figs.length)%figs.length; if(i===cur) return;
       figs[cur].style.setProperty('--dx',(dir>0?'-26px':'26px')); figs[cur].classList.remove('on');
